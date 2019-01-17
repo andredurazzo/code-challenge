@@ -1,10 +1,13 @@
-FROM java:8
+FROM gradle:jdk8-slim AS BUILD_IMAGE
+COPY . /home/source/java
+WORKDIR /home/source/java
+USER root
+RUN chown -R gradle /home/source/java
+USER gradle
+RUN gradle clean build
 
-ENTRYPOINT ["/usr/bin/java", "-cp", "/opt/app/*:/opt/app/lib/*", "com.github.cstroe.example.Main"]
-EXPOSE 8080
-
-# Add Maven dependencies (not shaded into the artifact; Docker-cached)
-ADD target/dependency           /opt/app/lib
-
-# Add the service itself
-ADD target/app.jar /opt/app/app.jar
+FROM openjdk:8-jre-alpine
+VOLUME /application
+WORKDIR /application
+COPY --from=BUILD_IMAGE "/home/source/java/build/libs/code-challenge.jar" app.jar
+CMD ["java","-Dspring.data.mongodb.uri=mongodb://springboot-mongo:27017/springmongo-demo","-jar","app.jar"]
