@@ -1,10 +1,12 @@
 package com.adurazzo.codeChallenge.model;
 
 
+import com.adurazzo.codeChallenge.enums.RiskEnumStrategy;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import static com.adurazzo.codeChallenge.commons.Validator.*;
 
 @Document(collection = "creditLimit")
 public class CreditLimit {
@@ -17,8 +19,7 @@ public class CreditLimit {
 
     private Double creditLimit;
 
-    @DBRef
-    private Risk risk;
+    private RiskEnumStrategy type;
 
     private Double interestRate;
 
@@ -47,12 +48,12 @@ public class CreditLimit {
         this.creditLimit = creditLimit;
     }
 
-    public Risk getRisk() {
-        return risk;
+    public RiskEnumStrategy getType() {
+        return type;
     }
 
-    public void setRisk(Risk risk) {
-        this.risk = risk;
+    public void setType(RiskEnumStrategy type) {
+        this.type = type;
     }
 
     public Double getInterestRate() {
@@ -60,6 +61,17 @@ public class CreditLimit {
     }
 
     public void setInterestRate(Double interestRate) {
-        this.interestRate = interestRate;
+        if(null != interestRate)
+            this.interestRate = this.type.execute(this.creditLimit);
+        else
+            this.interestRate = interestRate;
+
+    }
+
+    public void check() {
+        checkNotNull(creditLimit, "Credit limit is required!");
+        checkNotNullOrEmpty(clientName, "Client name is required!");
+        checkNotNull(type, "Type is required!");
+
     }
 }

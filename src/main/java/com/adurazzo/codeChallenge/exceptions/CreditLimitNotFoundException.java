@@ -1,4 +1,4 @@
-package com.adurazzo.codeChallenge.exception;
+package com.adurazzo.codeChallenge.exceptions;
 
 public class CreditLimitNotFoundException extends RuntimeException {
 

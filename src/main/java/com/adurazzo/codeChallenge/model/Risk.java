@@ -1,21 +1,25 @@
 package com.adurazzo.codeChallenge.model;
 
-import com.adurazzo.codeChallenge.enums.RISK_TYPE;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "risk")
 public class Risk {
 
-    private RISK_TYPE type;
+    @Id
+    private String id;
+
+    private String name;
 
     private Long value;
 
-    public RISK_TYPE getType() {
-        return type;
+
+    public String getName() {
+        return name;
     }
 
-    public void setType(RISK_TYPE type) {
-        this.type = type;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Long getValue() {
@@ -24,5 +28,13 @@ public class Risk {
 
     public void setValue(Long value) {
         this.value = value;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }
