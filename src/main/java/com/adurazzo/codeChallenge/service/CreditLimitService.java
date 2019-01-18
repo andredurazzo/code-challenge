@@ -17,6 +17,7 @@ public class CreditLimitService {
 
     public CreditLimit save(CreditLimit cl) {
         cl.check();
+        cl.applyInterest();
         return repo.save(cl);
 
     }

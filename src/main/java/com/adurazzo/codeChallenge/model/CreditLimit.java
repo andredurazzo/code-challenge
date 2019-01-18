@@ -21,7 +21,9 @@ public class CreditLimit {
 
     private RiskEnumStrategy type;
 
-    private Double interestRate;
+    private Integer interestRate;
+
+    private Double interestApplied;
 
 
     public String getId() {
@@ -56,16 +58,20 @@ public class CreditLimit {
         this.type = type;
     }
 
-    public Double getInterestRate() {
+    public Double getInterestApplied() {
+        return interestApplied;
+    }
+
+    public void setInterestApplied(Double interestApplied) {
+
+    }
+
+    public Integer getInterestRate() {
         return interestRate;
     }
 
-    public void setInterestRate(Double interestRate) {
-        if(null != interestRate)
-            this.interestRate = this.type.execute(this.creditLimit);
-        else
-            this.interestRate = interestRate;
-
+    public void setInterestRate(Integer interestRate) {
+        this.interestRate = interestRate;
     }
 
     public void check() {
@@ -73,5 +79,10 @@ public class CreditLimit {
         checkNotNullOrEmpty(clientName, "Client name is required!");
         checkNotNull(type, "Type is required!");
 
+    }
+
+    public void applyInterest(){
+        this.interestRate  = this.type.getRate();
+        this.interestApplied = this.type.execute(this.creditLimit);
     }
 }

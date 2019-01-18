@@ -15,7 +15,7 @@ public enum RiskEnumStrategy {
     TYPE_B(10) {
         @Override
         public Double execute(Double value) {
-            return (value * (TYPE_B.perc / 100)) + value;
+            return (value * (TYPE_B.rate / 100)) + value;
         }
     },
 
@@ -23,15 +23,19 @@ public enum RiskEnumStrategy {
         @Override
         public Double execute(Double value) {
 
-            return (value * (TYPE_C.perc / 100)) + value;
+            return (value * (TYPE_C.rate / 100)) + value;
         }
     };
 
     public abstract Double execute(Double value);
 
-    private int perc;
-    RiskEnumStrategy(int perc){
-        this.perc = perc;
+    private int rate;
+    RiskEnumStrategy(int rate){
+        this.rate = rate;
+    }
+
+    public int getRate(){
+        return rate;
     }
 
 }
