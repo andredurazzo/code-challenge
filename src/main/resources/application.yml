@@ -1,0 +1,14 @@
+# MongoDB settings
+spring:
+  data:
+    mongodb:
+      host: localhost
+      source: admin
+      username:
+      password:
+      port: 27017
+      database: test
+      authentication-database: # Authentication database name.
+      repositories:
+        enabled: true # Enable Mongo repositories.
+      uri: mongodb://localhost/test # Mongo database URI. When set, host and port are ignored.
