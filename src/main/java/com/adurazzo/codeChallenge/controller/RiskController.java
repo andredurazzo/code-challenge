@@ -11,6 +11,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping(path = "/risk")
 public class RiskController {
 

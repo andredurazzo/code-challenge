@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path="/creditLimit")
+@CrossOrigin(origins = "*")
 public class CreditLimitController {
 
     @Autowired
@@ -26,8 +27,8 @@ public class CreditLimitController {
 
     }
 
-    @PostMapping
-    CreditLimit newEmployee(@RequestBody CreditLimit newCL) {
+    @PostMapping("/")
+    CreditLimit newEmployee(@RequestBody CreditLimitPresenter newCL) {
         return service.save(newCL);
     }
 
@@ -45,7 +46,7 @@ public class CreditLimitController {
                 .orElseThrow(() -> new CreditLimitNotFoundException(name));
     }
 
-    @PutMapping("/{id}")
+/*    @PutMapping("/{id}")
     CreditLimit replaceEmployee(@RequestBody CreditLimit newCreditLimit, @PathVariable String id) {
 
         return repo.findById(id)
@@ -59,7 +60,7 @@ public class CreditLimitController {
                     newCreditLimit.setId(id);
                     return service.save(newCreditLimit);
                 });
-    }
+    }*/
 
     @DeleteMapping("/{id}")
     void deleteEmployee(@PathVariable String id) {
@@ -68,3 +69,4 @@ public class CreditLimitController {
 
 
 }
+

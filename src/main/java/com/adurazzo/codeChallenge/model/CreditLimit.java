@@ -82,7 +82,7 @@ public class CreditLimit {
     }
 
     public void applyInterest(){
-        this.interestRate  = this.type.getRate();
+        this.interestRate  = this.type.getRate().intValue();
         this.interestApplied = this.type.execute(this.creditLimit);
     }
 
@@ -93,5 +93,9 @@ public class CreditLimit {
         this.type = type;
         this.interestRate = interestRate;
         this.interestApplied = interestApplied;
+    }
+
+    public CreditLimit() {
+       super();
     }
 }
