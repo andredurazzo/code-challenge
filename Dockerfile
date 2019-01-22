@@ -1,12 +1,12 @@
-FROM gradle:jdk8-slim AS BUILD_IMAGE
+FROM gradle:jdk11-slim AS BUILD_IMAGE
 COPY . /home/source/java
 WORKDIR /home/source/java
 USER root
 RUN chown -R gradle /home/source/java
 USER gradle
-RUN gradle clean build
+RUN gradle clean build -x test
 
-FROM openjdk:8-jre-alpine
+FROM openjdk:11-jre
 VOLUME /application
 WORKDIR /application
 COPY --from=BUILD_IMAGE "/home/source/java/build/libs/code-challenge.jar" app.jar

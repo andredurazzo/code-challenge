@@ -14,7 +14,7 @@ public class CreditLimit {
     @Id
     private String id;
 
-    @Indexed
+    @Indexed(unique = true)
     private String clientName;
 
     private Double creditLimit;
@@ -84,5 +84,14 @@ public class CreditLimit {
     public void applyInterest(){
         this.interestRate  = this.type.getRate();
         this.interestApplied = this.type.execute(this.creditLimit);
+    }
+
+    public CreditLimit(String id, String clientName, Double creditLimit, RiskEnumStrategy type, Integer interestRate, Double interestApplied) {
+        this.id = id;
+        this.clientName = clientName;
+        this.creditLimit = creditLimit;
+        this.type = type;
+        this.interestRate = interestRate;
+        this.interestApplied = interestApplied;
     }
 }
